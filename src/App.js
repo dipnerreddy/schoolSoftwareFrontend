@@ -10,6 +10,8 @@ import BalanceFeeClassWise from './page/BalanceFeeClassWise';
 import UpdateStudentStatus from './page/UpdateStudentStatus';
 import PaymentReceipt from './page/PaymentReceipt';
 import Login from './Login'; // Assuming you have a login page
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const App = () => {
     return (

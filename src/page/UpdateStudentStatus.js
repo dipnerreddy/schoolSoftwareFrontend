@@ -11,18 +11,12 @@ const UpdateStudentStatus = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const data = {
-            studentName,
-            phoneNumber,
-            stillStudying
-        };
+        const data = { studentName, phoneNumber, stillStudying };
 
         try {
             const response = await fetch(`${process.env.REACT_APP_BASE_URL}/updateStudentStatus`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
             });
 
@@ -41,8 +35,8 @@ const UpdateStudentStatus = () => {
     };
 
     return (
-        <div className="container">
-            <h2>Update Student Status</h2>
+        <div className="container mt-4">
+            <h2 className="mb-4 text-center">Update Student Status</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="studentName" className="form-label">Student Name</label>
@@ -78,15 +72,11 @@ const UpdateStudentStatus = () => {
                         <option value="false">No</option>
                     </select>
                 </div>
-                <button type="submit" className="btn btn-primary">Update Status</button>
+                <button type="submit" className="btn btn-primary btn-block">Update Status</button>
             </form>
-            {message && <p className="mt-3">{message}</p>}
-
-            {/* Back to Home Button */}
+            {message && <p className="mt-3 text-center">{message}</p>}
             <div className="text-center mt-4">
-                <button className="btn btn-secondary" onClick={() => navigate('/home')}>
-                    Back to Home
-                </button>
+                <button className="btn btn-secondary" onClick={() => navigate('/home')}>Back to Home</button>
             </div>
         </div>
     );

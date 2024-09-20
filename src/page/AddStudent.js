@@ -60,7 +60,7 @@ const AddStudent = () => {
         <div className="container mt-4">
             <h2 className="mb-4 text-center">Add Student</h2>
             <form onSubmit={handleSubmit} className="mb-4">
-                <div className="form-group">
+                <div className="form-group mb-3">
                     <label>Parent ID:</label>
                     <input
                         type="number"
@@ -70,7 +70,7 @@ const AddStudent = () => {
                         required
                     />
                 </div>
-                <div className="form-group">
+                <div className="form-group mb-3">
                     <label>Student Name:</label>
                     <input
                         type="text"
@@ -80,7 +80,7 @@ const AddStudent = () => {
                         required
                     />
                 </div>
-                <div className="form-group">
+                <div className="form-group mb-3">
                     <label>Date of Birth:</label>
                     <input
                         type="date"
@@ -90,7 +90,7 @@ const AddStudent = () => {
                         required
                     />
                 </div>
-                <div className="form-group">
+                <div className="form-group mb-3">
                     <label>Admission Year:</label>
                     <input
                         type="number"
@@ -100,7 +100,7 @@ const AddStudent = () => {
                         required
                     />
                 </div>
-                <div className="form-group">
+                <div className="form-group mb-3">
                     <label>Current Class:</label>
                     <input
                         type="text"
@@ -110,7 +110,7 @@ const AddStudent = () => {
                         required
                     />
                 </div>
-                <div className="form-group">
+                <div className="form-group mb-3">
                     <label>Still Studying:</label>
                     <select
                         className="form-control"
@@ -121,7 +121,7 @@ const AddStudent = () => {
                         <option value="false">No</option>
                     </select>
                 </div>
-                <div className="form-group">
+                <div className="form-group mb-3">
                     <label>Gender:</label>
                     <select
                         className="form-control"
@@ -132,7 +132,7 @@ const AddStudent = () => {
                         <option value="Female">Female</option>
                     </select>
                 </div>
-                <button type="submit" className="btn btn-primary">Add Student</button>
+                <button type="submit" className="btn btn-primary btn-block">Add Student</button>
             </form>
 
             {/* Display success or error messages */}
@@ -141,7 +141,7 @@ const AddStudent = () => {
 
             {/* Back to Home Button */}
             <div className="text-center mt-4">
-                <button className="btn btn-primary" onClick={() => navigate('/home')}>
+                <button className="btn btn-secondary" onClick={() => navigate('/home')}>
                     Back to Home
                 </button>
             </div>

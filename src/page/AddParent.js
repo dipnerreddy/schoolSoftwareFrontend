@@ -11,36 +11,27 @@ const AddParent = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        const data = {
-            parentName,
-            phoneNumber,
-            address,
-        };
+        const data = { parentName, phoneNumber, address };
 
         try {
             const response = await fetch(`${process.env.REACT_APP_BASE_URL}/addParent`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
             });
 
-            if (!response.ok) {
+            if (response.ok) {
+                setMessage('Parent added successfully!');
+                setError('');
+                setParentName('');
+                setPhoneNumber('');
+                setAddress('');
+            } else {
                 const errorText = await response.text();
-                throw new Error(errorText);
+                setError(errorText || 'Error adding parent.');
             }
-
-            setMessage('Parent added successfully!');
-            setError('');
-            // Clear fields after successful submission
-            setParentName('');
-            setPhoneNumber('');
-            setAddress('');
-        } catch (err) {
-            setError(err.message);
-            setMessage('');
+        } catch (error) {
+            setError('An error occurred. Please try again later.');
         }
     };
 
@@ -48,48 +39,24 @@ const AddParent = () => {
         <div className="container mt-4">
             <h2 className="mb-4 text-center">Add Parent</h2>
             <form onSubmit={handleSubmit} className="mb-4">
-                <div className="form-group">
+                <div className="form-group mb-3">
                     <label>Parent Name:</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        value={parentName}
-                        onChange={(e) => setParentName(e.target.value)}
-                        required
-                    />
+                    <input type="text" className="form-control" value={parentName} onChange={(e) => setParentName(e.target.value)} required />
                 </div>
-                <div className="form-group">
+                <div className="form-group mb-3">
                     <label>Phone Number:</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
-                        required
-                    />
+                    <input type="text" className="form-control" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required />
                 </div>
-                <div className="form-group">
+                <div className="form-group mb-3">
                     <label>Address:</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        required
-                    />
+                    <input type="text" className="form-control" value={address} onChange={(e) => setAddress(e.target.value)} required />
                 </div>
-                <button type="submit" className="btn btn-primary">Add Parent</button>
+                <button type="submit" className="btn btn-primary btn-block">Add Parent</button>
             </form>
-
-            {/* Display success or error messages */}
             {message && <p className="text-success text-center">{message}</p>}
             {error && <p className="text-danger text-center">{error}</p>}
-
-            {/* Back to Home Button */}
             <div className="text-center mt-4">
-                <button className="btn btn-primary" onClick={() => navigate('/home')}>
-                    Back to Home
-                </button>
+                <button className="btn btn-secondary" onClick={() => navigate('/home')}>Back to Home</button>
             </div>
         </div>
     );

@@ -1,4 +1,3 @@
-// Update in CollectFee.js
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -13,61 +12,53 @@ const CollectFee = () => {
     const paymentData = location.state?.paymentData || JSON.parse(sessionStorage.getItem('feePaymentData'));
 
     useEffect(() => {
-        if (!paymentData) {
-            navigate('/check-balance');
-        }
+        if (!paymentData) navigate('/check-balance');
     }, [paymentData, navigate]);
 
-    // Update in CollectFee.js
-const handleSubmit = async (event) => {
-  event.preventDefault();
-  const data = { ...paymentData, amountPaying };
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const data = { ...paymentData, amountPaying };
 
-  try {
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/collectFee`, {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-      });
+        try {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/collectFee`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
 
-      if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(errorText);
-      }
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(errorText);
+            }
 
-      const result = await response.json();
-      setMessage('Payment collected successfully!');
-      setError('');
-      setRemainingBalance(result.remainingBalance);
+            const result = await response.json();
+            setMessage('Payment collected successfully!');
+            setError('');
+            setRemainingBalance(result.remainingBalance);
 
-      // Prepare receipt data
-      const receiptData = {
-          studentName: paymentData.studentName,
-          date: new Date().toLocaleString('en-GB', {
-              day: '2-digit',
-              month: '2-digit',
-              year: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit',
-          }),
-          mobileNumber: paymentData.phoneNumber,
-          className: paymentData.currentClass,
-          amountPaid: amountPaying,
-          remainingBalance: result.remainingBalance,
-      };
+            const receiptData = {
+                studentName: paymentData.studentName,
+                date: new Date().toLocaleString('en-GB', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                }),
+                mobileNumber: paymentData.phoneNumber,
+                className: paymentData.currentClass,
+                amountPaid: amountPaying,
+                remainingBalance: result.remainingBalance,
+            };
 
-      // Navigate to PaymentReceipt with receipt data
-      navigate('/payment-receipt', { state: { receiptData } });
-      sessionStorage.removeItem('feePaymentData');
-  } catch (err) {
-      console.error(err);
-      setError(err.message);
-      setMessage('');
-  }
-};
-
+            navigate('/payment-receipt', { state: { receiptData } });
+            sessionStorage.removeItem('feePaymentData');
+        } catch (err) {
+            console.error(err);
+            setError(err.message);
+            setMessage('');
+        }
+    };
 
     return (
         <div className="container mt-4">
@@ -80,7 +71,7 @@ const handleSubmit = async (event) => {
                 </div>
             )}
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
+                <div className="form-group mb-3">
                     <label>Amount Paying:</label>
                     <input
                         type="number"
@@ -90,7 +81,7 @@ const handleSubmit = async (event) => {
                         required
                     />
                 </div>
-                <button type="submit" className="btn btn-primary">Submit Payment</button>
+                <button type="submit" className="btn btn-primary btn-block">Submit Payment</button>
             </form>
 
             {remainingBalance !== null && (

@@ -1,8 +1,7 @@
-// src/index.js or src/App.js
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { AuthProvider } from './AuthContext'; // Import the AuthProvider
+import { AuthProvider } from './AuthContext';
 
 ReactDOM.render(
     <AuthProvider>
