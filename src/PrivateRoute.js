@@ -1,17 +1,12 @@
 // src/PrivateRoute.js
 import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from './AuthContext';
 
-const PrivateRoute = ({ element, ...rest }) => {
-    // Assuming a placeholder for authentication check
-    const isAuthenticated = false; // Set this to true if you have an auth check
+const PrivateRoute = ({ element }) => {
+    const { isAuthenticated } = useAuth();
 
-    return (
-        <Route
-            {...rest}
-            element={isAuthenticated ? element : <Navigate to="/" />}
-        />
-    );
+    return isAuthenticated ? element : <Navigate to="/" />;
 };
 
 export default PrivateRoute;
