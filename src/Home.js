@@ -1,9 +1,13 @@
-// src/Home.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const navigate = useNavigate();
+
+    const handleLogout = () => {
+        // Optionally, clear session storage or any authentication tokens here
+        navigate('/login'); // Redirect to the login page
+    };
 
     return (
         <div className="container-fluid d-flex flex-column justify-content-center align-items-center" style={{ minHeight: '100vh', backgroundColor: '#f0f8ff' }}>
@@ -45,7 +49,7 @@ const Home = () => {
                 </div>
 
                 {/* Collect Fee Button */}
-                <div className="col-md-4 mb-3 text-center">
+                {/* <div className="col-md-4 mb-3 text-center">
                     <button
                         className="btn btn-outline-primary w-100"
                         style={{ display: 'block', height: '150px' }}
@@ -59,7 +63,7 @@ const Home = () => {
                         <br />
                         <span style={{ fontWeight: 'bold' }}>Collect Fee</span>
                     </button>
-                </div>
+                </div> */}
 
                 {/* Check Balance Fee Button */}
                 <div className="col-md-4 mb-3 text-center">
@@ -111,6 +115,13 @@ const Home = () => {
                         <span style={{ fontWeight: 'bold' }}>Update Student Status</span>
                     </button>
                 </div>
+            </div>
+
+            {/* Logout Button */}
+            <div className="mt-4">
+                <button className="btn btn-danger" onClick={handleLogout}>
+                    Logout
+                </button>
             </div>
         </div>
     );

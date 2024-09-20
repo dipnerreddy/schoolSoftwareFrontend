@@ -1,4 +1,3 @@
-// src/UpdateStudentStatus.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -82,6 +81,13 @@ const UpdateStudentStatus = () => {
                 <button type="submit" className="btn btn-primary">Update Status</button>
             </form>
             {message && <p className="mt-3">{message}</p>}
+
+            {/* Back to Home Button */}
+            <div className="text-center mt-4">
+                <button className="btn btn-secondary" onClick={() => navigate('/home')}>
+                    Back to Home
+                </button>
+            </div>
         </div>
     );
 };
