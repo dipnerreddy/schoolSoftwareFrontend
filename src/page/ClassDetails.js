@@ -6,22 +6,8 @@ const ClassDetails = () => {
   const [className, setClassName] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const location = useLocation(); // To get any passed state or query parameters
-
-  // const fetchStudents = async (className) => {
-  //   try {
-  //     const response = await fetch(`${process.env.REACT_APP_BASE_URL}/studentsByClass?className=${className}`);
-  //     if (!response.ok) {
-  //       throw new Error('Failed to fetch students');
-  //     }
-  //     const data = await response.json();
-  //     setStudents(data);
-  //     setLoading(false);
-  //   } catch (error) {
-  //     setError(error.message);
-  //     setLoading(false);
-  //   }
-  // };
+  const location = useLocation();
+  const navigate = useNavigate(); // Define navigate
 
   const fetchStudents = async (className) => {
     try {
@@ -42,9 +28,7 @@ const ClassDetails = () => {
     }
   };
   
-
   useEffect(() => {
-    // Extract class name from URL or state
     const queryParams = new URLSearchParams(location.search);
     const classNameParam = queryParams.get('className') || '10'; // Default class is 10 if not provided
     setClassName(classNameParam);
@@ -90,6 +74,13 @@ const ClassDetails = () => {
       <div className="text-center mt-4">
         <button className="btn btn-primary" onClick={handlePrint}>
           Print Class Details
+        </button>
+      </div>
+      
+      {/* Back to Home Button */}
+      <div className="text-center mt-4">
+        <button className="btn btn-secondary" onClick={() => navigate('/home')}>
+          Back to Home
         </button>
       </div>
     </div>
