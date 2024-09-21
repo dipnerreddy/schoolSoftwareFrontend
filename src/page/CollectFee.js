@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+// import { useLocation } from 'react-router-dom'; // Keep this line
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const CollectFee = () => {
@@ -18,24 +19,24 @@ const CollectFee = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = { ...paymentData, amountPaying };
-
+    
         try {
             const response = await fetch(`${process.env.REACT_APP_BASE_URL}/collectFee`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
             });
-
+    
             if (!response.ok) {
                 const errorText = await response.text();
                 throw new Error(errorText);
             }
-
+    
             const result = await response.json();
             setMessage('Payment collected successfully!');
             setError('');
             setRemainingBalance(result.remainingBalance);
-
+    
             const receiptData = {
                 studentName: paymentData.studentName,
                 date: new Date().toLocaleString('en-GB', {
@@ -50,7 +51,15 @@ const CollectFee = () => {
                 amountPaid: amountPaying,
                 remainingBalance: result.remainingBalance,
             };
-
+    
+            // Construct WhatsApp message
+            const message = `Dear Parent,\n \nyour payment of ₹${amountPaying} has been successfully collected for ${paymentData.studentName} studying in ${paymentData.currentClass}th Class. \n \n Remaining balance is ₹${result.remainingBalance}.\n \nRegards \nRadiant High School, \nNunna`;
+            const phoneNumber = paymentData.phoneNumber.replace(/[^0-9]/g, ''); // Ensure phone number is clean
+            const whatsappLink = `https://wa.me/91${phoneNumber}?text=${encodeURIComponent(message)}`;
+    
+            // Open the WhatsApp link in a new tab
+            window.open(whatsappLink, '_blank');
+    
             navigate('/payment-receipt', { state: { receiptData } });
             sessionStorage.removeItem('feePaymentData');
         } catch (err) {
@@ -59,6 +68,8 @@ const CollectFee = () => {
             setMessage('');
         }
     };
+    
+    
 
     return (
         <div className="container mt-4">
