@@ -8,6 +8,21 @@ const ClassDetails = () => {
   const [error, setError] = useState(null);
   const location = useLocation(); // To get any passed state or query parameters
 
+  // const fetchStudents = async (className) => {
+  //   try {
+  //     const response = await fetch(`${process.env.REACT_APP_BASE_URL}/studentsByClass?className=${className}`);
+  //     if (!response.ok) {
+  //       throw new Error('Failed to fetch students');
+  //     }
+  //     const data = await response.json();
+  //     setStudents(data);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     setError(error.message);
+  //     setLoading(false);
+  //   }
+  // };
+
   const fetchStudents = async (className) => {
     try {
       const response = await fetch(`${process.env.REACT_APP_BASE_URL}/studentsByClass?className=${className}`);
@@ -15,13 +30,18 @@ const ClassDetails = () => {
         throw new Error('Failed to fetch students');
       }
       const data = await response.json();
-      setStudents(data);
+  
+      // Sort students by remaining balance in descending order
+      const sortedStudents = data.sort((a, b) => b.remainingBalance - a.remainingBalance);
+      
+      setStudents(sortedStudents);
       setLoading(false);
     } catch (error) {
       setError(error.message);
       setLoading(false);
     }
   };
+  
 
   useEffect(() => {
     // Extract class name from URL or state
