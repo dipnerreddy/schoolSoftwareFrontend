@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from './AuthContext'; // Import useAuth
+import { useAuth } from '../AuthContext'; // Adjust the import path as needed
 
-const Login = () => {
+const AdminLogin = () => {
     const { login } = useAuth(); // Get login function from context
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -12,7 +12,11 @@ const Login = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/login`, {
+        console.log('Admin URL:', process.env.REACT_APP_ADMIN_URL);
+        console.log('Submitting to:', `${process.env.REACT_APP_ADMIN_URL}/superLogin`);
+
+        // Fetch code here
+        const response = await fetch(`${process.env.REACT_APP_ADMIN_URL}/superLogin`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -22,15 +26,15 @@ const Login = () => {
 
         if (response.ok) {
             login(); // Set the authentication state
-            navigate('/home'); // Redirect to home on success
+            navigate('/admin-home'); // Redirect to AdminHome on success
         } else {
             const errorMessage = await response.text();
             setMessage(errorMessage || 'Login failed. Please check your credentials.');
         }
     };
 
-    const handleAdminLogin = () => {
-        navigate('/admin-login'); // Redirect to the admin login page within the app
+    const handleUserLogin = () => {
+        navigate('/login'); // Adjust the path to your user login page
     };
 
     return (
@@ -39,15 +43,14 @@ const Login = () => {
                 <div className="col-md-4">
                     <div className="card shadow">
                         <div className="card-body">
-                            {/* Add the logo image above the login form */}
                             <div className="text-center mb-4">
                                 <img 
-                                    src="/logo.png" /* Path to the image file */
+                                    src="/logo.png" // Path to the image file
                                     alt="Logo" 
-                                    style={{ width: '150px' }} /* Adjust the width as needed */
+                                    style={{ width: '150px' }} // Adjust the width as needed
                                 />
                             </div>
-                            <h2 className="text-center mb-4">Login</h2>
+                            <h2 className="text-center mb-4">Admin Login</h2>
                             <form onSubmit={handleSubmit}>
                                 <div className="mb-3">
                                     <label className="form-label">Username:</label>
@@ -72,10 +75,10 @@ const Login = () => {
                                 <button type="submit" className="btn btn-primary w-100">Login</button>
                             </form>
                             {message && <p className="text-danger mt-3 text-center">{message}</p>}
-                            {/* Button for Admin Login */}
+                            
                             <div className="text-center mt-3">
-                                <button className="btn btn-link" onClick={handleAdminLogin}>
-                                    Login as Administrator
+                                <button className="btn btn-link" onClick={handleUserLogin}>
+                                    Login as User
                                 </button>
                             </div>
                         </div>
@@ -86,4 +89,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default AdminLogin;

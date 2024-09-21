@@ -10,6 +10,12 @@ import BalanceFeeClassWise from './page/BalanceFeeClassWise';
 import UpdateStudentStatus from './page/UpdateStudentStatus';
 import PaymentReceipt from './page/PaymentReceipt';
 import Login from './Login'; // Assuming you have a login page
+import AdminLogin from './adminPage/AdminLogin';
+import AdminHome  from './adminPage/AdminHome';
+import StudentHome from './adminPage/StudentHome';
+import StaffHome from './adminPage/StaffHome';
+import ClassDetails from './page/ClassDetails';
+
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -27,6 +33,11 @@ const App = () => {
                 <Route path="/balance-fee-class-wise" element={<BalanceFeeClassWise />} />
                 <Route path="/update-student-status" element={<UpdateStudentStatus />} />
                 <Route path="/payment-receipt" element={<PaymentReceipt />} />
+                <Route path="/admin-login" element={<AdminLogin />} />
+                <Route path="/admin-home" element={<AdminHome />} />
+                <Route path="/student-home" element={<StudentHome />} />  {/* Students Page */}
+                <Route path="/staff" element={<StaffHome />} /> {/* Staff Page */}
+                <Route path="/class-details" element={<ClassDetails />} /> 
             </Routes>
         </Router>
     );
