@@ -34,7 +34,7 @@ const CheckBalance = () => {
 
     return (
         <div className="container mt-4">
-            <h2 className="mb-4 text-center">Check Student Balance</h2>
+            <h2 className="mb-4 text-center">Collect Fees</h2>
             <form onSubmit={handleSubmit} className="mb-4">
                 <div className="form-group mb-3">
                     <label>Student Name:</label>

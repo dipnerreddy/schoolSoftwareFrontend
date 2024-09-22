@@ -41,24 +41,7 @@ const Home = () => {
                         <span style={{ fontWeight: 'bold' }}>Add Student</span>
                     </button>
                 </div>
-  
-                {/* Add Parent Button */}
-                <div className="col-md-4 mb-3 text-center">
-                    <button
-                        className="btn btn-outline-primary w-100"
-                        style={{ display: 'block', height: '150px' }}
-                        onClick={() => navigate('/add-parent')}
-                    >
-                        <img
-                            src="/logo.png" // Replace with the actual image path
-                            alt="Add Parent"
-                            style={{ height: '80px', marginBottom: '10px' }}
-                        />
-                        <br />
-                        <span style={{ fontWeight: 'bold' }}>Add Parent</span>
-                    </button>
-                </div>
-  
+    
                 {/* Get All Students in Class */}
                 <div className="col-md-4 mb-3 text-center">
                     <button
@@ -89,7 +72,7 @@ const Home = () => {
                             style={{ height: '80px', marginBottom: '10px' }}
                         />
                         <br />
-                        <span style={{ fontWeight: 'bold' }}>Check Balance Fee</span>
+                        <span style={{ fontWeight: 'bold' }}>Collect Fee</span>
                     </button>
                 </div>
   
