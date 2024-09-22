@@ -35,7 +35,7 @@ const AddStudent = () => {
         };
 
         try {
-            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/addStudentWithParent`, {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/addStudent`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -60,6 +60,12 @@ const AddStudent = () => {
             setParentName('');
             setParentPhoneNumber('');
             setParentAddress('');
+
+            // Make the success message disappear after 5 seconds
+            setTimeout(() => {
+                setMessage('');
+            }, 5000); // 5 seconds timeout
+
         } catch (err) {
             setError(err.message);
             setMessage('');
@@ -175,7 +181,7 @@ const AddStudent = () => {
             {error && <p className="text-danger text-center">{error}</p>}
 
             {/* Back to Home Button */}
-            <div className="text-center mt-4">
+            <div className="text-center mt-4 mb-5">  {/* Added mb-5 for margin */}
                 <button className="btn btn-secondary" onClick={() => navigate('/home')}>
                     Back to Home
                 </button>
