@@ -2,13 +2,18 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const AddStudent = () => {
-    const [parentId, setParentId] = useState('');
+    // Student and parent state variables
     const [studentName, setStudentName] = useState('');
     const [dob, setDob] = useState('');
     const [admissionYear, setAdmissionYear] = useState('');
     const [currentClass, setCurrentClass] = useState('');
     const [stillStudying, setStillStudying] = useState(true);
     const [gender, setGender] = useState('Male');
+
+    const [parentName, setParentName] = useState('');
+    const [parentPhoneNumber, setParentPhoneNumber] = useState('');
+    const [parentAddress, setParentAddress] = useState('');
+
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
@@ -16,18 +21,21 @@ const AddStudent = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        // Create the payload for the API
         const data = {
-            parentId,
             studentName,
             dob,
             admissionYear,
             currentClass,
             stillStudying,
             gender,
+            parentName,  // Parent details
+            parentPhoneNumber,
+            parentAddress
         };
 
         try {
-            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/addStudent`, {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/addStudentWithParent`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -40,16 +48,18 @@ const AddStudent = () => {
                 throw new Error(errorText);
             }
 
-            setMessage('Student added successfully!');
+            setMessage('Student and Parent added successfully!');
             setError('');
             // Clear fields after successful submission
-            setParentId('');
             setStudentName('');
             setDob('');
             setAdmissionYear('');
             setCurrentClass('');
             setStillStudying(true);
             setGender('Male');
+            setParentName('');
+            setParentPhoneNumber('');
+            setParentAddress('');
         } catch (err) {
             setError(err.message);
             setMessage('');
@@ -58,18 +68,9 @@ const AddStudent = () => {
 
     return (
         <div className="container mt-4">
-            <h2 className="mb-4 text-center">Add Student</h2>
+            <h2 className="mb-4 text-center">Add Student and Parent</h2>
             <form onSubmit={handleSubmit} className="mb-4">
-                <div className="form-group mb-3">
-                    <label>Parent ID:</label>
-                    <input
-                        type="number"
-                        className="form-control"
-                        value={parentId}
-                        onChange={(e) => setParentId(e.target.value)}
-                        required
-                    />
-                </div>
+                {/* Student Details */}
                 <div className="form-group mb-3">
                     <label>Student Name:</label>
                     <input
@@ -132,7 +133,41 @@ const AddStudent = () => {
                         <option value="Female">Female</option>
                     </select>
                 </div>
-                <button type="submit" className="btn btn-primary btn-block">Add Student</button>
+
+                {/* Parent Details */}
+                <h3 className="mb-4 text-center">Parent Details</h3>
+                <div className="form-group mb-3">
+                    <label>Parent Name:</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        value={parentName}
+                        onChange={(e) => setParentName(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="form-group mb-3">
+                    <label>Parent Phone Number:</label>
+                    <input
+                        type="tel"
+                        className="form-control"
+                        value={parentPhoneNumber}
+                        onChange={(e) => setParentPhoneNumber(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="form-group mb-3">
+                    <label>Parent Address:</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        value={parentAddress}
+                        onChange={(e) => setParentAddress(e.target.value)}
+                        required
+                    />
+                </div>
+
+                <button type="submit" className="btn btn-primary btn-block">Add Student and Parent</button>
             </form>
 
             {/* Display success or error messages */}
