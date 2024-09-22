@@ -6,11 +6,21 @@ const AdminHome = () => {
     const navigate = useNavigate();
 
     const handleNavigateToStudents = () => {
-        navigate('/student-home'); // Navigates to home page for students
+        navigate('/home'); // Navigates to home page for students
     };
 
     const handleNavigateToStaff = () => {
         navigate('/staff'); // Navigates to staff page
+    };
+
+    const handleNavigateToCreateClass = () => {
+        navigate('/createClass'); // Navigates to Create Class page
+    };
+
+    const handleLogout = () => {
+        // Clear any authentication tokens or user data
+        // Redirect to the login page (or any appropriate route)
+        navigate('/admin-login');
     };
 
     return (
@@ -28,6 +38,16 @@ const AdminHome = () => {
                             <div className="mb-3">
                                 <button className="btn btn-secondary w-100" onClick={handleNavigateToStaff}>
                                     Staff
+                                </button>
+                            </div>
+                            <div className="mb-3">
+                                <button className="btn btn-success w-100" onClick={handleNavigateToCreateClass}>
+                                    Create Class
+                                </button>
+                            </div>
+                            <div className="mb-3">
+                                <button className="btn btn-danger w-100" onClick={handleLogout}>
+                                    Logout
                                 </button>
                             </div>
                         </div>

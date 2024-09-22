@@ -15,6 +15,7 @@ import AdminHome  from './adminPage/AdminHome';
 import StudentHome from './adminPage/StudentHome';
 import StaffHome from './adminPage/StaffHome';
 import ClassDetails from './page/ClassDetails';
+import CreateClass from './adminPage/CreateClass';
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -38,6 +39,8 @@ const App = () => {
                 <Route path="/student-home" element={<StudentHome />} />  {/* Students Page */}
                 <Route path="/staff" element={<StaffHome />} /> {/* Staff Page */}
                 <Route path="/class-details" element={<ClassDetails />} /> 
+                <Route path="/createClass" element={<CreateClass />} /> 
+                
             </Routes>
         </Router>
     );
