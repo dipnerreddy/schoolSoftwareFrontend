@@ -6,7 +6,7 @@ const StudentHome = () => {
 
   const handleLogout = () => {
       // Optionally, clear session storage or any authentication tokens here
-      navigate('/admin-login'); // Redirect to the login page
+      navigate('/login'); // Redirect to the login page
   };
   
   const handleGetAllStudents = () => {
