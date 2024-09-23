@@ -7,7 +7,7 @@ const Home = () => {
     const handleLogout = () => {
         // Clear session storage
         sessionStorage.clear(); // Or specify keys if you want to clear specific ones
-        navigate('/admin-login'); // Redirect to the login page
+        navigate('/login'); // Redirect to the login page
     };
     
     const handleGetAllStudents = () => {

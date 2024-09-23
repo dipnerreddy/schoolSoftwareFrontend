@@ -10,7 +10,7 @@ const AdminHome = () => {
     };
 
     const handleNavigateToStaff = () => {
-        navigate('/staff'); // Navigates to staff page
+        navigate('/staff-home'); // Navigates to staff page
     };
 
     const handleNavigateToCreateClass = () => {

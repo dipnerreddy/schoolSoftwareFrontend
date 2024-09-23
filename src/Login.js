@@ -9,6 +9,7 @@ const Login = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        console.log("Submitting login...");
 
         const response = await fetch(`${process.env.REACT_APP_BASE_URL}/login`, {
             method: 'POST',
@@ -18,20 +19,20 @@ const Login = () => {
             body: JSON.stringify({ username, password }),
         });
 
+        console.log("Response status:", response.status);
+
         if (response.ok) {
-            // Assuming the response contains user data
-            const userData = await response.json();
-            // Save user session (you can store more information if needed)
-            sessionStorage.setItem('userSession', JSON.stringify(userData)); 
-            navigate('/home'); // Redirect to home on success
+            sessionStorage.setItem('isLoggedIn', 'true'); // Set session variable
+            navigate('/home'); 
         } else {
             const errorMessage = await response.text();
+            console.log("Error message:", errorMessage);
             setMessage(errorMessage || 'Login failed. Please check your credentials.');
         }
     };
 
     const handleAdminLogin = () => {
-        navigate('/admin-login'); // Redirect to the admin login page within the app
+        navigate('/admin-login'); 
     };
 
     return (
@@ -42,9 +43,9 @@ const Login = () => {
                         <div className="card-body">
                             <div className="text-center mb-4">
                                 <img 
-                                    src="/logo.png" // Path to the image file
+                                    src="/logo.png" 
                                     alt="Logo" 
-                                    style={{ width: '150px' }} // Adjust the width as needed
+                                    style={{ width: '150px' }}
                                 />
                             </div>
                             <h2 className="text-center mb-4">Login</h2>
