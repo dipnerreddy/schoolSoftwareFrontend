@@ -11,14 +11,12 @@ import UpdateStudentStatus from './page/UpdateStudentStatus';
 import PaymentReceipt from './page/PaymentReceipt';
 import Login from './Login'; // Assuming you have a login page
 import AdminLogin from './adminPage/AdminLogin';
-import AdminHome  from './adminPage/AdminHome';
+import AdminHome from './adminPage/AdminHome';
 import StudentHome from './adminPage/StudentHome';
 import StaffHome from './adminPage/StaffHome';
 import ClassDetails from './page/ClassDetails';
 import CreateClass from './adminPage/CreateClass';
-
-// import 'bootstrap/dist/css/bootstrap.min.css';
-
+import PrivateRoute from './PrivateRoute';
 
 const App = () => {
     return (
@@ -26,21 +24,26 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/home" element={<Home />} />
-                <Route path="/add-student" element={<AddStudent />} />
-                <Route path="/add-parent" element={<AddParent />} />
-                <Route path="/collect-fee" element={<CollectFee />} />
-                <Route path="/check-balance-fee" element={<CheckBalanceFee />} />
-                <Route path="/balance-fee-class-wise" element={<BalanceFeeClassWise />} />
-                <Route path="/update-student-status" element={<UpdateStudentStatus />} />
-                <Route path="/payment-receipt" element={<PaymentReceipt />} />
-                <Route path="/admin-login" element={<AdminLogin />} />
-                <Route path="/admin-home" element={<AdminHome />} />
-                <Route path="/student-home" element={<StudentHome />} />  {/* Students Page */}
-                <Route path="/staff" element={<StaffHome />} /> {/* Staff Page */}
-                <Route path="/class-details" element={<ClassDetails />} /> 
-                <Route path="/createClass" element={<CreateClass />} /> 
                 
+                {/* Protected Routes */}
+                <Route path="/home" element={<PrivateRoute element={<Home />} />} />
+                <Route path="/add-student" element={<PrivateRoute element={<AddStudent />} />} />
+                <Route path="/add-parent" element={<PrivateRoute element={<AddParent />} />} />
+                <Route path="/collect-fee" element={<PrivateRoute element={<CollectFee />} />} />
+                <Route path="/check-balance-fee" element={<PrivateRoute element={<CheckBalanceFee />} />} />
+                <Route path="/balance-fee-class-wise" element={<PrivateRoute element={<BalanceFeeClassWise />} />} />
+                <Route path="/update-student-status" element={<PrivateRoute element={<UpdateStudentStatus />} />} />
+                <Route path="/payment-receipt" element={<PrivateRoute element={<PaymentReceipt />} />} />
+                
+                {/* Unprotected Routes */}
+                <Route path="/admin-login" element={<AdminLogin />} />
+                <Route path="/student-home" element={<PrivateRoute element={<StudentHome />} />} />
+                <Route path="/class-details" element={<PrivateRoute element={<ClassDetails />} />} />
+
+                {/* Protected Admin Routes */}
+                <Route path="/admin-home" element={<PrivateRoute element={<AdminHome />} />} />
+                <Route path="/createClass" element={<PrivateRoute element={<CreateClass />} />} />
+                <Route path="/staff-home" element={<PrivateRoute element={<StaffHome />} />} />
             </Routes>
         </Router>
     );

@@ -10,7 +10,7 @@ const AdminHome = () => {
     };
 
     const handleNavigateToStaff = () => {
-        navigate('/staff'); // Navigates to staff page
+        navigate('/staff-home'); // Navigates to staff page
     };
 
     const handleNavigateToCreateClass = () => {
@@ -18,9 +18,9 @@ const AdminHome = () => {
     };
 
     const handleLogout = () => {
-        // Clear any authentication tokens or user data
-        // Redirect to the login page (or any appropriate route)
-        navigate('/admin-login');
+        // Clear session storage
+        sessionStorage.clear(); // Or specify keys if you want to clear specific ones
+        navigate('/admin-login'); // Redirect to the login page
     };
 
     return (

@@ -5,7 +5,8 @@ const Home = () => {
     const navigate = useNavigate();
   
     const handleLogout = () => {
-        // Optionally, clear session storage or any authentication tokens here
+        // Clear session storage
+        sessionStorage.clear(); // Or specify keys if you want to clear specific ones
         navigate('/login'); // Redirect to the login page
     };
     
