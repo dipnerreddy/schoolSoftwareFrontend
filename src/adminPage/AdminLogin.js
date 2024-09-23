@@ -25,7 +25,7 @@ const AdminLogin = () => {
         });
 
         if (response.ok) {
-            login(); // Set the authentication state
+            sessionStorage.setItem('isLoggedIn', 'true'); // Set session variable
             navigate('/admin-home'); // Redirect to AdminHome on success
         } else {
             const errorMessage = await response.text();

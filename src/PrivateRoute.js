@@ -1,12 +1,11 @@
-// src/PrivateRoute.js
+// src/components/PrivateRoute.js
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from './AuthContext';
 
 const PrivateRoute = ({ element }) => {
-    const { isAuthenticated } = useAuth();
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
 
-    return isAuthenticated ? element : <Navigate to="/" />;
+    return isLoggedIn ? element : <Navigate to="/admin-login" />;
 };
 
 export default PrivateRoute;

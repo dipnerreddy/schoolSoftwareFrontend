@@ -5,8 +5,9 @@ const Home = () => {
     const navigate = useNavigate();
   
     const handleLogout = () => {
-        // Optionally, clear session storage or any authentication tokens here
-        navigate('/login'); // Redirect to the login page
+        // Clear session storage
+        sessionStorage.clear(); // Or specify keys if you want to clear specific ones
+        navigate('/admin-login'); // Redirect to the login page
     };
     
     const handleGetAllStudents = () => {

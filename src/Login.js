@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from './AuthContext'; // Import useAuth
 
 const Login = () => {
-    const { login } = useAuth(); // Get login function from context
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -21,7 +19,10 @@ const Login = () => {
         });
 
         if (response.ok) {
-            login(); // Set the authentication state
+            // Assuming the response contains user data
+            const userData = await response.json();
+            // Save user session (you can store more information if needed)
+            sessionStorage.setItem('userSession', JSON.stringify(userData)); 
             navigate('/home'); // Redirect to home on success
         } else {
             const errorMessage = await response.text();
@@ -39,12 +40,11 @@ const Login = () => {
                 <div className="col-md-4">
                     <div className="card shadow">
                         <div className="card-body">
-                            {/* Add the logo image above the login form */}
                             <div className="text-center mb-4">
                                 <img 
-                                    src="/logo.png" /* Path to the image file */
+                                    src="/logo.png" // Path to the image file
                                     alt="Logo" 
-                                    style={{ width: '150px' }} /* Adjust the width as needed */
+                                    style={{ width: '150px' }} // Adjust the width as needed
                                 />
                             </div>
                             <h2 className="text-center mb-4">Login</h2>
@@ -72,7 +72,6 @@ const Login = () => {
                                 <button type="submit" className="btn btn-primary w-100">Login</button>
                             </form>
                             {message && <p className="text-danger mt-3 text-center">{message}</p>}
-                            {/* Button for Admin Login */}
                             <div className="text-center mt-3">
                                 <button className="btn btn-link" onClick={handleAdminLogin}>
                                     Login as Administrator

@@ -30,62 +30,6 @@ const CollectFee = () => {
         setPaymentMode(e.target.value); // Update payment mode
     };
 
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
-    //     const data = { ...paymentData, amountPaying, paymentMode }; // Include payment mode in data
-
-    //     try {
-    //         const response = await fetch(`${process.env.REACT_APP_BASE_URL}/collectFee`, {
-    //             method: 'POST',
-    //             headers: { 'Content-Type': 'application/json' },
-    //             body: JSON.stringify(data),
-    //         });
-
-    //         if (!response.ok) {
-    //             const errorText = await response.text();
-    //             throw new Error(errorText);
-    //         }
-
-    //         const result = await response.json();
-    //         setMessage('Payment collected successfully!');
-    //         setError('');
-    //         setRemainingBalance(result.remainingBalance);
-    //         setDisplayedBalance(result.remainingBalance); // Update displayed balance after successful payment
-
-    //         const receiptData = {
-    //             studentName: paymentData.studentName,
-    //             date: new Date().toLocaleString('en-GB', {
-    //                 day: '2-digit',
-    //                 month: '2-digit',
-    //                 year: 'numeric',
-    //                 hour: '2-digit',
-    //                 minute: '2-digit',
-    //             }),
-    //             mobileNumber: paymentData.phoneNumber,
-    //             className: paymentData.currentClass,
-    //             amountPaid: amountPaying,
-    //             remainingBalance: result.remainingBalance,
-    //             paymentMode, // Include payment mode in receipt data
-    //         };
-
-    //         // Construct WhatsApp message
-    //         const message = `Dear Parent,\n \nyour payment of ₹${amountPaying} has been successfully collected for ${paymentData.studentName} studying in ${paymentData.currentClass}th Class via ${paymentMode}. \n \n Remaining balance is ₹${result.remainingBalance}.\n \nRegards \nRadiant High School, \nNunna`;
-    //         const phoneNumber = paymentData.phoneNumber.replace(/[^0-9]/g, ''); // Ensure phone number is clean
-    //         const whatsappLink = `https://wa.me/91${phoneNumber}?text=${encodeURIComponent(message)}`;
-
-    //         // Open the WhatsApp link in a new tab
-    //         window.open(whatsappLink, '_blank');
-
-    //         navigate('/payment-receipt', { state: { receiptData } });
-    //         sessionStorage.removeItem('feePaymentData');
-    //     } catch (err) {
-    //         console.error(err);
-    //         setError(err.message);
-    //         setMessage('');
-    //     }
-    // };
-
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = { ...paymentData, amountPaying, paymentMode }; // Include payment mode in data
