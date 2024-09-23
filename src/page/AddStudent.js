@@ -9,10 +9,14 @@ const AddStudent = () => {
     const [currentClass, setCurrentClass] = useState('');
     const [stillStudying, setStillStudying] = useState(true);
     const [gender, setGender] = useState('Male');
-
+    
     const [parentName, setParentName] = useState('');
     const [parentPhoneNumber, setParentPhoneNumber] = useState('');
     const [parentAddress, setParentAddress] = useState('');
+
+    // New state variables for bus details
+    const [comesByBus, setComesByBus] = useState(false);
+    const [busNumber, setBusNumber] = useState('');
 
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
@@ -27,11 +31,13 @@ const AddStudent = () => {
             dob,
             admissionYear,
             currentClass,
-            stillStudying: true,
+            stillStudying,
             gender,
             parentName,  // Parent details
             parentPhoneNumber,
-            parentAddress
+            parentAddress,
+            comesByBus, // Bus details
+            busNumber
         };
 
         try {
@@ -60,6 +66,8 @@ const AddStudent = () => {
             setParentName('');
             setParentPhoneNumber('');
             setParentAddress('');
+            setComesByBus(false);
+            setBusNumber('');
 
             // Make the success message disappear after 5 seconds
             setTimeout(() => {
@@ -120,17 +128,6 @@ const AddStudent = () => {
                                 required
                             />
                         </div>
-                        {/* <div className="form-group mb-3">
-                            <label>Still Studying:</label>
-                            <select
-                                className="form-control"
-                                value={stillStudying}
-                                onChange={(e) => setStillStudying(e.target.value === 'true')}
-                            >
-                                <option value="true">Yes</option>
-                                <option value="false">No</option>
-                            </select>
-                        </div> */}
                         <div className="form-group mb-3">
                             <label>Gender:</label>
                             <select
@@ -144,7 +141,7 @@ const AddStudent = () => {
                         </div>
                     </div>
 
-                    {/* Right side for Parent Details */}
+                    {/* Right side for Parent Details with Bus Details integrated */}
                     <div className="col-md-6">
                         <h4 className="text-center mb-4">Parent Details</h4>
                         <div className="form-group mb-3">
@@ -177,6 +174,31 @@ const AddStudent = () => {
                                 required
                             />
                         </div>
+
+                        {/* Bus Details Section Integrated into Parent Details */}
+                        <div className="form-group mb-3">
+                            <label>Comes By Bus:</label>
+                            <select
+                                className="form-control"
+                                value={comesByBus}
+                                onChange={(e) => setComesByBus(e.target.value === 'true')}
+                            >
+                                <option value={false}>No</option>
+                                <option value={true}>Yes</option>
+                            </select>
+                        </div>
+                        {comesByBus && (
+                            <div className="form-group mb-3">
+                                <label>Bus Number:</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={busNumber}
+                                    onChange={(e) => setBusNumber(e.target.value)}
+                                    required={comesByBus}
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
 
