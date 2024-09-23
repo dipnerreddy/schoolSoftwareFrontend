@@ -23,6 +23,10 @@ const AdminHome = () => {
         navigate('/admin-login'); // Redirect to the login page
     };
 
+    const handleCreateBus = () => {
+        navigate('/add-bus');
+    }
+
     return (
         <div className="container d-flex justify-content-center align-items-center vh-100">
             <div className="row w-100 justify-content-center">
@@ -36,13 +40,18 @@ const AdminHome = () => {
                                 </button>
                             </div>
                             <div className="mb-3">
-                                <button className="btn btn-secondary w-100" onClick={handleNavigateToStaff}>
+                                <button className="btn btn-success w-100" onClick={handleNavigateToStaff}>
                                     Staff
                                 </button>
                             </div>
                             <div className="mb-3">
-                                <button className="btn btn-success w-100" onClick={handleNavigateToCreateClass}>
+                                <button className="btn btn-secondary w-100" onClick={handleNavigateToCreateClass}>
                                     Create Class
+                                </button>
+                            </div>
+                            <div className="mb-3">
+                                <button className="btn btn-success w-100" onClick={handleCreateBus}>
+                                    Bus Details
                                 </button>
                             </div>
                             <div className="mb-3">

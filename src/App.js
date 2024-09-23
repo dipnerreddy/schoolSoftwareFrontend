@@ -17,6 +17,7 @@ import StaffHome from './adminPage/StaffHome';
 import ClassDetails from './page/ClassDetails';
 import CreateClass from './adminPage/CreateClass';
 import PrivateRoute from './PrivateRoute';
+import AddBusDetails from './page/AddBusDetails';
 
 const App = () => {
     return (
@@ -44,6 +45,7 @@ const App = () => {
                 <Route path="/admin-home" element={<PrivateRoute element={<AdminHome />} />} />
                 <Route path="/createClass" element={<PrivateRoute element={<CreateClass />} />} />
                 <Route path="/staff-home" element={<PrivateRoute element={<StaffHome />} />} />
+                <Route path="/add-bus" element={<PrivateRoute element={<AddBusDetails/>} />} />
             </Routes>
         </Router>
     );
