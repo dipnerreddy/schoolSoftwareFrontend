@@ -94,49 +94,51 @@ const CollectFee = () => {
             studentName: paymentData.studentName,
             mobileNumber: paymentData.phoneNumber,
             amountPaying: busAmountPaying,
-            paymentMode, // Include payment mode in bus data
+            paymentMode,
         };
-
+    
         try {
             const response = await fetch(`${process.env.REACT_APP_BASE_URL}/collectBusFee`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(busData),
             });
-
+    
             if (!response.ok) {
-                const errorText = await response.text(); // Read the response as text for error message
-                throw new Error(errorText); // Throw an error with the text response
+                const errorText = await response.text();
+                throw new Error(errorText);
             }
-
-            const result = await response.json(); // Parse as JSON only if the response is ok
+    
+            const result = await response.json();
             setBusMessage('Bus payment collected successfully!');
             setBusError('');
-            setBusRemainingBalance(result.remainingBalance);
+            setBusRemainingBalance(result.remainingBalance); // Ensure this is set correctly
             setDisplayedBusBalance(result.remainingBalance);
-
+    
             // WhatsApp message and redirection
             const receiptData = {
                 studentName: paymentData.studentName,
-                date: new Date().toLocaleString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
                 mobileNumber: paymentData.phoneNumber,
-                className: paymentData.currentClass,
                 amountPaid: busAmountPaying,
-                remainingBalance: result.remainingBalance,
-                paymentMode,
+                remainingBalance: result.remainingBalance, // Ensure this value is correct
+                className: paymentData.currentClass,
             };
-
+    
             const phoneNumber = paymentData.phoneNumber.replace(/[^0-9]/g, '');
-            const whatsappMessage = `Dear Parent,\n\nYour bus payment of ₹${busAmountPaying} for ${paymentData.studentName} has been collected. Remaining Bus balance: ₹${result.remainingBalance}.\n\nRegards,\nRadiant High School.`;
+            const whatsappMessage = `Dear Parent,\n\nYour bus payment of ₹${busAmountPaying} for ${paymentData.studentName} has been collected towards Bus Fees. Remaining Bus balance: ₹${result.remainingBalance}.\n\nRegards,\nRadiant High School.`;
             const whatsappLink = `https://wa.me/91${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
             window.open(whatsappLink, '_blank');
-
-            navigate('/payment-receipt', { state: { receiptData } });
+    
+            // Navigate to BusPaymentReceipt with relevant data
+            navigate('/bus-payment-receipt', { state: { receiptData } }); // Check here
         } catch (err) {
             setBusError(err.message);
             setBusMessage('');
         }
     };
+    
+    
+    
 
     return (
         <div className="container mt-4">
