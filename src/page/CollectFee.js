@@ -94,6 +94,7 @@ const CollectFee = () => {
             studentName: paymentData.studentName,
             mobileNumber: paymentData.phoneNumber,
             amountPaying: busAmountPaying,
+            paymentMode, // Include payment mode in bus data
         };
     
         try {
@@ -145,11 +146,11 @@ const CollectFee = () => {
                                     </tr>
                                     <tr>
                                         <td className="text-start"><strong>School Fee Balance:</strong></td>
-                                        <td className="text-start">₹{paymentData.remainingBalance}</td>
+                                        <td className="text-start">₹{remainingBalance?.toFixed(2)}</td>
                                     </tr>
                                     <tr>
                                         <td className="text-start"><strong>Bus Fee Balance:</strong></td>
-                                        <td className="text-start">₹{paymentData.busRemainingBalance}</td>
+                                        <td className="text-start">₹{busRemainingBalance?.toFixed(2)}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -170,7 +171,7 @@ const CollectFee = () => {
                         </div>
                         {displayedBalance !== null && (
                             <p className="text-center">
-                                <strong>Remaining School Balance After Payment:</strong> ₹{displayedBalance.toFixed(2)}
+                                <strong>Remaining School Balance After Payment:</strong> ₹{displayedBalance?.toFixed(2)}
                             </p>
                         )}
                         <button type="submit" className="btn btn-primary btn-block">Submit School Fee</button>
@@ -189,7 +190,7 @@ const CollectFee = () => {
                         </div>
                         {displayedBusBalance !== null && (
                             <p className="text-center">
-                                <strong>Remaining Bus Balance After Payment:</strong> ₹{displayedBusBalance.toFixed(2)}
+                                <strong>Remaining Bus Balance After Payment:</strong> ₹{displayedBusBalance?.toFixed(2)}
                             </p>
                         )}
                         <button type="submit" className="btn btn-primary btn-block">Submit Bus Fee</button>
