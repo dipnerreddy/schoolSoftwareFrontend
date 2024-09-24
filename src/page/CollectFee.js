@@ -5,16 +5,16 @@ const CollectFee = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const [amountPaying, setAmountPaying] = useState(0);
-    const [busAmountPaying, setBusAmountPaying] = useState(0); // New state for bus fee amount
+    const [busAmountPaying, setBusAmountPaying] = useState(0);
     const [remainingBalance, setRemainingBalance] = useState(null);
-    const [busRemainingBalance, setBusRemainingBalance] = useState(null); // New state for bus remaining balance
+    const [busRemainingBalance, setBusRemainingBalance] = useState(null);
     const [displayedBalance, setDisplayedBalance] = useState(null);
-    const [displayedBusBalance, setDisplayedBusBalance] = useState(null); // New state for displayed bus balance
+    const [displayedBusBalance, setDisplayedBusBalance] = useState(null);
     const [paymentMode, setPaymentMode] = useState('cash');
     const [message, setMessage] = useState('');
-    const [busMessage, setBusMessage] = useState(''); // New state for bus payment message
+    const [busMessage, setBusMessage] = useState('');
     const [error, setError] = useState('');
-    const [busError, setBusError] = useState(''); // New state for bus error
+    const [busError, setBusError] = useState('');
 
     const paymentData = location.state?.paymentData || JSON.parse(sessionStorage.getItem('feePaymentData'));
 
@@ -22,7 +22,7 @@ const CollectFee = () => {
         if (!paymentData) navigate('/check-balance');
         else {
             setRemainingBalance(paymentData.remainingBalance);
-            setBusRemainingBalance(paymentData.busRemainingBalance); // Set bus remaining balance from payment data
+            setBusRemainingBalance(paymentData.busRemainingBalance);
         }
     }, [paymentData, navigate]);
 
@@ -95,17 +95,20 @@ const CollectFee = () => {
             mobileNumber: paymentData.phoneNumber,
             amountPaying: busAmountPaying,
         };
-
+    
         try {
             const response = await fetch(`${process.env.REACT_APP_BASE_URL}/collectBusFee`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(busData),
             });
-
-            if (!response.ok) throw new Error(await response.text());
-
-            const result = await response.json();
+    
+            if (!response.ok) {
+                const errorText = await response.text(); // Read the response as text for error message
+                throw new Error(errorText); // Throw an error with the text response
+            }
+    
+            const result = await response.json(); // Parse as JSON only if the response is ok
             setBusMessage('Bus payment collected successfully!');
             setBusError('');
             setBusRemainingBalance(result.remainingBalance);
@@ -115,6 +118,7 @@ const CollectFee = () => {
             setBusMessage('');
         }
     };
+    
 
     return (
         <div className="container mt-4">
@@ -140,8 +144,12 @@ const CollectFee = () => {
                                         <td className="text-start">{paymentData.phoneNumber}</td>
                                     </tr>
                                     <tr>
-                                        <td className="text-start"><strong>Balance:</strong></td>
+                                        <td className="text-start"><strong>School Fee Balance:</strong></td>
                                         <td className="text-start">₹{paymentData.remainingBalance}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-start"><strong>Bus Fee Balance:</strong></td>
+                                        <td className="text-start">₹{paymentData.busRemainingBalance}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -157,15 +165,15 @@ const CollectFee = () => {
                     </div>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group mb-3">
-                            <label>Amount Paying:</label>
+                            <label>Amount Paying (School Fee):</label>
                             <input type="number" className="form-control" value={amountPaying} onChange={handleAmountChange} required />
                         </div>
                         {displayedBalance !== null && (
                             <p className="text-center">
-                                <strong>Remaining Balance After Payment:</strong> ₹{displayedBalance.toFixed(2)}
+                                <strong>Remaining School Balance After Payment:</strong> ₹{displayedBalance.toFixed(2)}
                             </p>
                         )}
-                        <button type="submit" className="btn btn-primary btn-block">Submit Payment</button>
+                        <button type="submit" className="btn btn-primary btn-block">Submit School Fee</button>
                     </form>
                     {message && <p className="text-success text-center">{message}</p>}
                     {error && <p className="text-danger text-center">{error}</p>}
@@ -174,17 +182,17 @@ const CollectFee = () => {
                 {/* Right Column: Bus Fee Collection */}
                 <div className="col-md-6">
                     <h3 className="text-center">Bus Fee Collection</h3>
-                    <div className="form-group mb-3">
-                        <label>Bus Amount Paying:</label>
-                        <input type="number" className="form-control" value={busAmountPaying} onChange={handleBusAmountChange} required />
-                    </div>
-                    {displayedBusBalance !== null && (
-                        <p className="text-center">
-                            <strong>Remaining Bus Balance After Payment:</strong> ₹{displayedBusBalance.toFixed(2)}
-                        </p>
-                    )}
                     <form onSubmit={handleBusSubmit}>
-                        <button type="submit" className="btn btn-primary btn-block">Submit Bus Payment</button>
+                        <div className="form-group mb-3">
+                            <label>Amount Paying (Bus Fee):</label>
+                            <input type="number" className="form-control" value={busAmountPaying} onChange={handleBusAmountChange} required />
+                        </div>
+                        {displayedBusBalance !== null && (
+                            <p className="text-center">
+                                <strong>Remaining Bus Balance After Payment:</strong> ₹{displayedBusBalance.toFixed(2)}
+                            </p>
+                        )}
+                        <button type="submit" className="btn btn-primary btn-block">Submit Bus Fee</button>
                     </form>
                     {busMessage && <p className="text-success text-center">{busMessage}</p>}
                     {busError && <p className="text-danger text-center">{busError}</p>}
